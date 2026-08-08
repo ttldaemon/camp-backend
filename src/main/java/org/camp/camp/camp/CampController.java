@@ -66,6 +66,22 @@ public class CampController {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
+    // camps discover controller
+    @GetMapping("/discover")
+    public ResponseEntity<List<Camp>> discoverCamps() {
+        try {
+            List<Camp> camps = campService.discoverCamps();
+            if (camps == null) {
+                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            }
+            return new ResponseEntity<>(camps, HttpStatus.OK);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            return new ResponseEntity<>((HttpHeaders) null, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
     // TODO: update api
+
 
 }

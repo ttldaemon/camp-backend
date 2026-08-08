@@ -64,4 +64,8 @@ public class CampService {
         camp.setDeletedAt(Instant.now());
         campRepository.save(camp);
     }
+
+    public List<Camp> discoverCamps() {
+        return campRepository.findAll();
+    }
 }

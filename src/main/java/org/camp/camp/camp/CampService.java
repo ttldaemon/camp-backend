@@ -1,7 +1,10 @@
 package org.camp.camp.camp;
 
+import org.camp.camp.camp.channels.ChannelService;
 import org.camp.camp.camp.dto.CampCreateRequest;
+import org.camp.camp.camp.dto.ChannelCreateRequest;
 import org.camp.camp.models.Camp;
+import org.camp.camp.models.CampChannel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,12 +17,16 @@ public class CampService {
 
     @Autowired
     private CampRepository campRepository;
+    @Autowired
+    private ChannelService channelService;
 
     public Camp createCamp(CampCreateRequest request) {
 
         if (campRepository.existsBySlug(request.getSlug())) {
             throw new IllegalArgumentException("Slug already exists");
         }
+
+        System.out.println("Creating camp with request: " + request);
 
         Camp camp = Camp.builder()
                 .name(request.getName())
@@ -34,7 +41,20 @@ public class CampService {
 
         Camp campCreated = campRepository.save(camp);
 
-        if(campCreated.getId() == null){
+        // create the general channel by default for the camp
+
+        ChannelCreateRequest chReq = ChannelCreateRequest.builder()
+                .campId(campCreated.getId())
+                .name("general")
+                .description("General channel for " + campCreated.getName())
+                .type("text")
+                .build();
+
+        System.out.println(chReq);
+
+        String createdId = channelService.createChannel(chReq);
+
+        if (campCreated.getId() == null) {
             return null;
         }
 

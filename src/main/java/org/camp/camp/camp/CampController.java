@@ -24,6 +24,10 @@ public class CampController {
     public ResponseEntity<Camp> createCamp(@RequestBody CampCreateRequest request) {
         System.out.println("Request for create camp");
         Camp camp = campService.createCamp(request);
+        System.out.println("Camp created: " + camp);
+        if(camp == null) {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
         return new ResponseEntity<>(camp, HttpStatus.CREATED);
     }
 

@@ -51,6 +51,9 @@ public class Camp {
     @Column(name = "member_count", nullable = false)
     private int memberCount = 1;
 
+    @Column(name = "member_ids")
+    private UUID[] memberIDs;
+
     @Column(name = "created_at", nullable = false, updatable = false)
     private Instant createdAt;
 

@@ -1,0 +1,10 @@
+CREATE TABLE camp_channels (
+                               id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+                               camp_id UUID NOT NULL REFERENCES camps(id) ON DELETE CASCADE,
+                               name VARCHAR(100) NOT NULL,
+                               description TEXT,
+                               type VARCHAR(20) NOT NULL DEFAULT 'TEXT',
+                               created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+                               updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+                               UNIQUE(camp_id, name)
+);

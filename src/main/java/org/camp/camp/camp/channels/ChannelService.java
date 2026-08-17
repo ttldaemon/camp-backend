@@ -6,6 +6,9 @@ import org.camp.camp.models.CampChannel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.UUID;
+
 @Service
 public class ChannelService {
 
@@ -31,5 +34,14 @@ public class ChannelService {
 
         System.out.println("Channel created: " + savedChannel);
         return savedChannel.getId().toString();
+    }
+
+    public List<CampChannel> getChannelsOfCamp(UUID campId) {
+        // find all the camps from the db based on campId
+        try {
+            return channelRepository.findByCampId(campId);
+        } catch (Exception e) {
+            return null;
+        }
     }
 }

@@ -110,7 +110,7 @@ public class AuthService {
             return null;
         }
 
-        User user = userRepository.findById(userId).orElseThrow(InvalidCredentialsException::new);
+        User user = userRepository.findById(userId).orElse(null);
         return buildAuthResponse(user);
     }
 }

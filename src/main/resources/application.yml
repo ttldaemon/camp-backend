@@ -38,6 +38,6 @@ spring:
 
 jwt:
   secret: iherfh3hu343948y834yfFF_#$F#F"#e2h3283772ygd273GF$G$%4
-  access-token-expiry: 900000
+  access-token-expiry: 90000000
   refresh-token-expiry: 604800000
 

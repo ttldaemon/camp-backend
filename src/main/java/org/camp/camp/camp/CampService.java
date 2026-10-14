@@ -1,5 +1,6 @@
 package org.camp.camp.camp;
 
+import lombok.extern.slf4j.Slf4j;
 import org.camp.camp.camp.channels.ChannelService;
 import org.camp.camp.camp.dto.CampCreateRequest;
 import org.camp.camp.camp.dto.ChannelCreateRequest;
@@ -12,6 +13,7 @@ import java.time.Instant;
 import java.util.List;
 import java.util.UUID;
 
+@Slf4j
 @Service
 public class CampService {
 
@@ -43,17 +45,28 @@ public class CampService {
 
         // create the general channel by default for the camp
 
-        ChannelCreateRequest chReq = ChannelCreateRequest.builder()
+        ChannelCreateRequest chReqGen = ChannelCreateRequest.builder()
                 .campId(campCreated.getId())
                 .name("general")
                 .description("General channel for " + campCreated.getName())
                 .type("text")
                 .build();
 
-        System.out.println(chReq);
+        ChannelCreateRequest chReqAnnouncement = ChannelCreateRequest.builder()
+                .campId(campCreated.getId())
+                .name("announcements")
+                .description("Announcement channel for " + campCreated.getName())
+                .type("announcement")
+                .build();
 
-        String createdId = channelService.createChannel(chReq);
+//        System.out.println(chReq);
+        String createdId = channelService.createChannel(chReqGen);
+        String createdIdAnnouncement = channelService.createChannel(chReqAnnouncement);
 
+        System.out.println("Created channel with id: " + createdId + " and announcement channel with id: " + createdIdAnnouncement);
+
+//        System.out.println("general channel created with id: " + createdIdAnnouncement);
+        System.out.println("camp created: " + campCreated);
         if (campCreated.getId() == null) {
             return null;
         }

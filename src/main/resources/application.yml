@@ -2,6 +2,18 @@ spring:
   application:
     name: camp
 
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: hackhub.kiit@gmail.com
+    password: ppwhycabnjldylbs
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+
   security:
     user:
       name: anshu
@@ -41,3 +53,6 @@ jwt:
   access-token-expiry: 90000000
   refresh-token-expiry: 604800000
 
+frontend:
+  web:
+    url: http://localhost:3000
